@@ -1,0 +1,20 @@
+stages:
+- build
+- publish
+
+variables:
+  CI_BUILD_TOKEN: "F-RBdk-VxjQXrRVA8cZt"
+  IMAGE_NAME: "test-nginx:develop-1.11.11"
+image: docker:17.10.0-ce
+services:
+  
+ - docker:dind
+
+build:
+  stage: build
+  script:
+    - docker version
+    - docker build -t maneeshdatazoom/$IMAGE_NAME .
+    - docker login -u maneeshdatazoom -p Man33shmurali
+    - docker push maneeshdatazoom/$IMAGE_NAME
+
